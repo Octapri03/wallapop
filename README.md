@@ -1,0 +1,2 @@
+# wallapop
+projecte unificador wallapop
