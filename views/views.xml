@@ -15,6 +15,154 @@
     </record>
 -->
 
+  <record model="ir.ui.view" id="wallapop.usuario_wizard_form">
+    <field name="name">wallapop usuario wizard</field>
+    <field name="model">wallapop.usuario_wizard</field>
+    <field name="arch" type="xml">
+        <form>
+
+                <group>
+                    <field name="avatar" widget="image"/>
+                    <field name="id_usuario"/>
+                    <field name="name_user"/>
+                    <field name="num_tel"/>
+                    <field name="email"/>
+                    <field name="name"/>
+                </group>
+
+            <footer>
+                <button name="create_usuario" type="object"
+                        string="Create" class="oe_highlight"/>
+                <button special="cancel" string="Cancel"/>
+            </footer>
+
+        </form>
+    </field>
+  </record>
+
+
+
+
+
+    
+  <record model="ir.ui.view" id="wallapop.form_usuario">
+    <field name="name">wallapop form usuarios</field>
+    <field name="model">res.partner</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet string="Form Usuario">
+          <group>
+            <field name="avatar" widget="image" />
+            <field name="id_usuario"/>
+            <field name="name_user"/>
+            <field name="num_tel"/>
+            <field name="email"/>
+            <field name="es_usuarioWallapop"/>
+            <!-- <field name="fecha_publicacuion"/>
+            <field name="vendedor"/> -->
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+
+
+  <record id="wallapop.usuario_wizard_action" model="ir.actions.act_window">
+    <field name="name">Create Usuario</field>
+    <field name="res_model">wallapop.usuario_wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="binding_model_id" ref="base.model_res_partner"/>
+  </record>
+
+
+
+  <record model="ir.ui.view" id="wallapop.form_usuario_herencia">
+    <field name="name">wallapop form usuario</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+      <form>
+        <sheet string="Form Usuario">
+          <group>
+            <field name="avatar" widget="image" />
+            <field name="id_usuario"/>
+            <field name="name_user"/>
+            <field name="num_tel"/>
+            <field name="email"/>
+            <field name="es_usuarioWallapop"/>
+            <button name="%(wallapop.usuario_wizard_action)d" type="action" string="Create Usuario" class="oe_highlight" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+
+
+  <record model="ir.ui.view" id="wallapop.view_usuario">
+    <field name="name">wallapop view usuarios</field>
+    <field name="model">res.partner</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="avatar" widget="image" />
+        <field name="id_usuario"/>
+        <field name="name_user"/>
+        <field name="num_tel"/>
+        <field name="email"/>
+        <!-- <field name="fecha_publicacuion"/>
+        <field name="vendedor"/> -->
+      </tree>
+    </field>
+  </record>
+
+
+
+
+
+
+  <!-- /////////////////////////////////////////7 -->
+
+
+
+  <record model="ir.ui.view" id="wallapop.view_producto">
+    <field name="name">wallapop view productos</field>
+    <field name="model">wallapop.producto</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="id_producto"/>
+        <field name="name_producto"/>
+        <field name="precio"/>
+        <field name="descripcion"/>
+        <field name="fecha_publicacuion"/>
+        <field name="vendedor"/>
+      </tree>
+    </field>
+  </record>
+
+
+  <record model="ir.ui.view" id="wallapop.form_producto">
+    <field name="name">wallapop form producto</field>
+    <field name="model">wallapop.producto</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet string="Formulario venta producto">
+          <group>
+            <field name="id_producto"/>
+            <field name="name_producto"/>
+            <field name="precio"/>
+            <field name="descripcion"/>
+            <field name="fecha_publicacuion"/>
+            <field name="vendedor"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+
+
     <!-- actions opening views on models -->
 <!--
     <record model="ir.actions.act_window" id="wallapop.action_window">
@@ -23,6 +171,29 @@
       <field name="view_mode">tree,form</field>
     </record>
 -->
+
+
+
+  <record model="ir.actions.act_window" id="wallapop.action_window_usuario">
+    <field name="name">wallapop usuario</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain"> [('es_usuarioWallapop','=',True)]</field>
+    <field name="context">{'default_es_usuarioWallapop': True}</field>
+    <field name="view_ids" eval="[(5, 0, 0),
+      (0, 0, {'view_mode': 'tree', 'view_id': ref('wallapop.view_usuario')}),
+      (0, 0, {'view_mode': 'form', 'view_id': ref('wallapop.form_usuario')}),]" />
+  </record>
+
+
+  <record model="ir.actions.act_window" id="wallapop.action_window_producto">
+    <field name="name">wallapop producto</field>
+    <field name="res_model">wallapop.producto</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+
+
 
     <!-- server action to the one above -->
 <!--
@@ -41,20 +212,20 @@
 -->
 
     <!-- Top menu item -->
-<!--
-    <menuitem name="wallapop" id="wallapop.menu_root"/>
--->
+
+    <menuitem name="Wallapop" id="wallapop.menu_root"/>
+
     <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="wallapop.menu_1" parent="wallapop.menu_root"/>
-    <menuitem name="Menu 2" id="wallapop.menu_2" parent="wallapop.menu_root"/>
--->
+
+    <menuitem name="Productos" id="wallapop.menu_productos" parent="wallapop.menu_root"/>
+    <menuitem name="Usuarios" id="wallapop.menu_usuarios" parent="wallapop.menu_root"/>
+
     <!-- actions -->
-<!--
-    <menuitem name="List" id="wallapop.menu_1_list" parent="wallapop.menu_1"
-              action="wallapop.action_window"/>
-    <menuitem name="Server to list" id="wallapop" parent="wallapop.menu_2"
-              action="wallapop.action_server"/>
--->
+
+    <menuitem name="Productos" id="wallapop.menu_producto" parent="wallapop.menu_productos"
+              action="wallapop.action_window_producto"/>
+    <menuitem name="Usuarios" id="wallapop.menu_usuario" parent="wallapop.menu_usuarios"
+              action="wallapop.action_window_usuario"/>
+
   </data>
 </odoo>

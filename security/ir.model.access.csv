@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_wallapop_wallapop,wallapop.wallapop,model_wallapop_wallapop,base.group_user,1,1,1,1
+access_wallapop_producto,wallapop.producto,model_wallapop_producto,base.group_user,1,1,1,1
+access_wallapop.usuario_wizard,wallapop.usuario_wizard,model_wallapop_usuario_wizard,base.group_user,1,1,1,1
